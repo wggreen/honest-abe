@@ -1,0 +1,60 @@
+.lists {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.politicians {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 100vw;
+}
+
+.politician {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 1px 2px 1px 2px;
+    height: 6.5vw;
+}
+
+.politicians_header {
+    text-align: center;
+}
+
+.politician h1 {
+    margin-top: 5px;
+}
+
+.politician__info {
+    margin-top: 1px;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.corporations {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.corporation {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 2px;
+    height: 5vw;
+}
+
+.corporation h1 {
+    margin-top: 5px;
+}
+
+.corporation__info {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.corporations_header {
+    text-align: center;
+}

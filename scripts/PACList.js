@@ -31,8 +31,6 @@ export const PACList = () => {
                     currentFD =>
                         currentFD.corporationId === i
                 )
-                console.log("matchingDonationsArray:")
-                console.log(matchingDonationsArray)
 
                 const foundCorporation = corporations.find(
                     corporation => {
@@ -44,25 +42,23 @@ export const PACList = () => {
 
                 if (matchingDonationsArray.length > 0) {
                     donationsObject.corporations_names.push(foundCorporation.company)
-                    console.log("donationsObject:")
-                    console.log(donationsObject)
     
                     matchingDonationsArray.map(
                         currentMD => {
                             donationsArray.push(currentMD.amount)
                         }
                     )
-                    console.log("donationsArray:")
-                    console.log(donationsArray)
     
                     let sum = donationsArray.reduce((acc, val) => {
                         return acc + val;
                         }
                     )
+
+                    sum.toString()
+
+                    sum = '$' + sum.toFixed()
     
                     donationsObject.corporation_donation_sums.push(sum)
-                    console.log("donationsObject:")
-                    console.log(donationsObject)
                 }
 
             }
@@ -75,10 +71,11 @@ export const PACList = () => {
                     "sum": donationsObject.corporation_donation_sums[i]
                 }
                 
-                console.log("donationsObject.corporation_donation_sums[i]:")
-                console.log(donationsObject.corporation_donation_sums[i])
                 arrayOfObjects.push(donationObject)
             }
+
+            console.log("arrayOfObjects")
+            console.log(arrayOfObjects)
 
             // Get HTML representation of product
             const html = PAC(currentPAC, arrayOfObjects)

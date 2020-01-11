@@ -1,13 +1,13 @@
 const PAC = (individualPAC, arrayOfObjects) => {
     return `
-        <section class="pac">
-            <header class="pac__name">
+        <section class="PAC">
+            <header class="PAC__name">
                 <h1>${individualPAC.registeredName}</h1>
             </header>
-            <div class="pac__info">
+            <div class="PAC__info">
                 <div>${individualPAC.address}</div>
             </div>
-            <div class="pac__donors">
+            <div class="PAC__donors">
                 <h2>Donors</h2>
                 <ul>
                 ${

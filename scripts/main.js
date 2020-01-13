@@ -6,8 +6,12 @@ import { getPacDonations } from "./PACDonationsProvider.js"
 import { PACList } from "./PACList.js"
 import PoliticianList from "./PoliticianList.js"
 import CorporationList from "./CorporationList.js"
+import { getBills } from "./BillProvider.js"
+import { getBillSponsors } from "./BillSponsorsProvider.js"
 
 getPoliticians()
+    .then(() => getBills())
+    .then(() => getBillSponsors())
     .then(() => getPacDonations())
     .then(() => PoliticianList())
 

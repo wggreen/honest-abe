@@ -1,4 +1,4 @@
-const Politician = (politician, arrayOfObjects) => {
+const Politician = (politician, arrayOfObjects, bills) => {
     return `
         <section class="politician">
             <header class="politician__name">
@@ -8,17 +8,17 @@ const Politician = (politician, arrayOfObjects) => {
                 <div>Age: ${politician.age}</div>
                 <div>Represents: ${politician.district}</div>
             </div>
-            <div class="pac__donations">
-                <h2>PAC Donations</h2>
-                <ul>
-                    ${
-                        arrayOfObjects.map(
-                            object => {
-                                return `<li>${object.name} (${object.sum})</li>`
-                            }
-                        ).join("")
-                    }
-                </ul>
+                <div class="politician__bills">
+                <h2>Sponsored Bills</h2>
+                <div>
+                ${
+                    bills.map(
+                        bill => {
+                            return `<div>${bill}</div >`
+                        }
+                    ).join("")
+                }
+                </div>
             </div>
         </section>
     `

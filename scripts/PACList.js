@@ -74,8 +74,6 @@ export const PACList = () => {
                 arrayOfObjects.push(donationObject)
             }
 
-            console.log("arrayOfObjects")
-            console.log(arrayOfObjects)
 
             // Get HTML representation of product
             const html = PAC(currentPAC, arrayOfObjects)

@@ -20,6 +20,18 @@ const Politician = (politician, arrayOfObjects, bills) => {
                 }
                 </div>
             </div>
+            <div class="politician__funders">
+                <h2>Related PACs</h2>
+                <ul>
+                ${
+                    arrayOfObjects.map(
+                        object => {
+                            return `<li>${object.name}</li>`
+                        }
+                    ).join("")
+                }
+                </ul>
+            </div>
         </section>
     `
 }

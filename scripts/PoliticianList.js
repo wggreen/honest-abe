@@ -1,9 +1,13 @@
 import { usePoliticians } from "./PoliticianProvider.js"
 import { usePACs } from "./PACProvider.js"
 import { useBills } from "./BillProvider.js"
+import { useInterests } from "./InterestsProvider.js"
 import { usePacDonations } from "./PACDonationsProvider.js"
 import { useBillSponsors } from "./BillSponsorsProvider.js"
+import { useCorporateInterests } from "./CorporateInterestsProvider.js"
+import { useCorporateDonations } from "./CorporateDonationsProvider.js"
 import Politician from "./Politician.js"
+import { useCorporations } from "./CorporationProvider.js"
 
 const contentTarget = document.querySelector(".politicians")
 
@@ -11,8 +15,12 @@ export const PoliticianList = () => {
     const politicians = usePoliticians()
     const pacs = usePACs()
     const bills = useBills()
+    const interests = useInterests()
+    const corporations = useCorporations()
+    const corporateDonations = useCorporateDonations()
     const pacDonations = usePacDonations()
-    const billSponsors = useBillSponsors()    
+    const billSponsors = useBillSponsors()   
+    const corporateInterests = useCorporateInterests() 
 
     const render = () => {
         contentTarget.innerHTML = politicians.map(politician => {
@@ -67,19 +75,13 @@ export const PoliticianList = () => {
 
             }
 
-            console.log("billSponsors")
-            console.log(billSponsors)
 
             const filteredSponsors = billSponsors.filter(
                 currentSponsor => 
                     currentSponsor.politicianId === politician.id
             )
 
-            console.log("filteredSponsors:")
-            console.log(filteredSponsors)
-
-            let billNamesArray = []
-
+            let arrayOfFilteredBills = []
 
             const filteredBillsArrays = filteredSponsors.map(currentSponsor => {
                 const filteredBill = bills.filter(
@@ -88,18 +90,71 @@ export const PoliticianList = () => {
                 )
                 return filteredBill
             })
-
-            console.log("filteredBillsArrays")
-            console.log(filteredBillsArrays)
-
-            const filteredBills = filteredBillsArrays.map(currentFBA => {
+            
+            filteredBillsArrays.map(currentFBA => {
                 const filteredBillArray = currentFBA.map(currentObject => {
-                    billNamesArray.push(currentObject.name)
+                    arrayOfFilteredBills.push(currentObject)
                 })
             })
 
-            console.log("billNamesArray")
-            console.log(billNamesArray)
+            let filteredInterestsArray = []
+
+            arrayOfFilteredBills.map(currentFB => {
+                const filteredInterests = interests.filter(
+                    currentInterest =>
+                        currentInterest.id === currentFB.interestId
+                )
+                filteredInterests.map(currentFI => {
+                    filteredInterestsArray.push(currentFI)
+                })
+            })
+            
+            let arrayOfFilteredCorporateInterests = []
+
+            const filteredCorporateInterestsArray = filteredInterestsArray.map(currentFI => {
+                const filteredCorporateInterests = corporateInterests.filter(
+                    currentCI =>
+                        currentCI.interestId === currentFI.id
+                )
+                filteredCorporateInterests.map(currentFCI => {
+                    arrayOfFilteredCorporateInterests.push(currentFCI)
+                })
+            })
+
+            let filteredCorporationsArray = []
+
+            arrayOfFilteredCorporateInterests.map(currentFCI => {
+                const filteredCorporations = corporations.filter(
+                    corporation =>
+                        currentFCI.corporationId === corporation.id
+                )
+                filteredCorporations.map(currentFC => {
+                    filteredCorporationsArray.push(currentFC)
+                })
+            })
+
+            let filteredCorporateDonors = []
+
+            filteredCorporationsArray.map(corporation => {
+                const filteredCorporateDonations = corporateDonations.filter(
+                    currentDonation =>
+                        currentDonation.corporationId === corporation.id
+                )
+                filteredCorporateDonations.map(currentFCD => {
+                    filteredCorporateDonors.push(corporation.company)
+                })
+            })
+
+            let corporateDonorNames = []
+
+            filteredCorporateDonors.map(donor => {
+                if (corporateDonorNames.includes(donor)) {
+                    return true
+                }
+                else {
+                    corporateDonorNames.push(donor)
+                }
+            })
 
             let arrayOfObjects = []
 
@@ -113,7 +168,7 @@ export const PoliticianList = () => {
             }
 
             // Get HTML representation of product
-            const html = Politician(politician, arrayOfObjects, billNamesArray)
+            const html = Politician(politician, arrayOfObjects, arrayOfFilteredBills, corporateDonorNames)
 
             return html
         }).join("")
